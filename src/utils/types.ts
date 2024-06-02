@@ -12,6 +12,12 @@ export type TIngredient = {
   image_mobile: string;
 };
 
+export type TIngredientList = {
+  bun: TIngredient[];
+  sauce: TIngredient[];
+  main: TIngredient[];
+}
+
 export type TConstructorIngredient = TIngredient & {
   id: string;
 };
