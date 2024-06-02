@@ -91,6 +91,33 @@ const App = () => {
             }
           />{' '}
         </Route>
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <Modal onClose={closeModal} title='Детали заказа'>
+                <OrderInfo />
+              </Modal>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/ingredients/:id'
+          element={
+            <Modal onClose={closeModal} title='Детали ингредиента'>
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+        <Route
+          path='/feed/:number'
+          element={
+            <Modal onClose={closeModal} title='Детали заказа'>
+              <OrderInfo />
+            </Modal>
+          }
+        />
+        тз
         <Route path='*' element={<NotFound404 />} />
       </Routes>
       <Routes>

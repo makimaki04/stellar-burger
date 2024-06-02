@@ -9,7 +9,7 @@ import { getOrderByNumberApi } from '@api';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
-  const number = Number(useParams());
+  const number = Number(useParams().number);
   const ingredientSelecot = useSelector(selectIngredients);
   const [orderData, setOrderData] = useState({
     _id: '',
@@ -28,6 +28,7 @@ export const OrderInfo: FC = () => {
   ];
 
   useEffect(() => {
+    console.log(number);
     getOrderByNumberApi(number).then((data) => setOrderData(data.orders[0]));
   }, []);
 

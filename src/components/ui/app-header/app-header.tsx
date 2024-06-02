@@ -7,12 +7,11 @@ import {
   Logo,
   ProfileIcon
 } from '@zlden/react-developer-burger-ui-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useMatch } from 'react-router-dom';
 
 export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
-  const location = useLocation();
   const isActive = (path: string) =>
-    location.pathname === path ? `${styles.link_active}` : '';
+    useMatch(path) ? `${styles.link_active}` : '';
 
   return (
     <header className={styles.header}>

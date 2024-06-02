@@ -5,9 +5,7 @@ import { FC, useEffect } from 'react';
 import {
   getOrders,
   selectOrders,
-  selectIsLoading,
-  selectSuccess,
-  getIngredients
+  selectIsLoading
 } from '../../services/slices/dataSlice';
 import { useDispatch, useSelector } from '../../services/store';
 
@@ -29,12 +27,9 @@ export const Feed: FC = () => {
     return <Preloader />;
   }
 
-  return (
-    <FeedUI
-      orders={orders}
-      handleGetFeeds={() => {
-        dispatch(getOrders());
-      }}
-    />
-  );
+  const getFeeds = () => {
+    dispatch(getOrders());
+  };
+
+  return <FeedUI orders={orders} handleGetFeeds={getFeeds} />;
 };
