@@ -1,15 +1,11 @@
 import {
   TUserOrdersSlice,
   UserOrdersSlice,
-  getOrders
+  getOrders,
+  initialState
 } from './userOrdersSlice';
 
 describe('Тест получения заказов полтзователя', () => {
-  const initialState: TUserOrdersSlice = {
-    orders: [],
-    error: null
-  };
-
   const testData = [
     {
       _id: '1',
@@ -54,12 +50,11 @@ describe('Тест получения заказов полтзователя', 
   it('состояни rejected получения заказа пользователя', () => {
     const error = new Error('testError');
     const currentState = UserOrdersSlice.reducer(
-        initialState, 
-        getOrders.rejected(error, '')
+      initialState,
+      getOrders.rejected(error, '')
     );
 
     expect(currentState.error).toBe(error.message);
     expect(currentState.orders.length).toBe(0);
   });
 });
-

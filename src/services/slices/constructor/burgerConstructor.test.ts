@@ -3,6 +3,7 @@ import {
   TConstructorState,
   addToConstructor,
   clearConstructorState,
+  initialState,
   rebuildOrder,
   removeFromConstructor
 } from './burgerConstructorSlice';
@@ -12,11 +13,6 @@ jest.mock('uuid', () => ({
 }));
 
 describe('Тест конструктора бургеров', () => {
-  const initialState: TConstructorState = {
-    bun: null,
-    ingredients: []
-  };
-
   const testData = [
     {
       _id: '1',
@@ -107,24 +103,27 @@ describe('Тест конструктора бургеров', () => {
   });
 
   const testState = {
-    bun: {...testData[0], id: '1'},
-    ingredients: [{...testData[1], id: '2'}, {...testData[2], id: '3'}]
-};
+    bun: { ...testData[0], id: '1' },
+    ingredients: [
+      { ...testData[1], id: '2' },
+      { ...testData[2], id: '3' }
+    ]
+  };
 
   it('Изменение порядка ингредиентов в конструкторе', () => {
     const currentState = ConstructorSlice.reducer(
-        testState,
-        rebuildOrder({from: 1, to: 0})
+      testState,
+      rebuildOrder({ from: 1, to: 0 })
     );
 
     expect(currentState.ingredients[0].id).toBe('3');
-    expect(currentState.ingredients[1].id).toBe('2')
+    expect(currentState.ingredients[1].id).toBe('2');
   });
 
   it('Очистка конструктора', () => {
     const currentState = ConstructorSlice.reducer(
-        testState,
-        clearConstructorState()
+      testState,
+      clearConstructorState()
     );
 
     expect(currentState).toEqual(initialState);

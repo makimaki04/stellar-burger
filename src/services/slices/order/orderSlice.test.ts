@@ -1,18 +1,17 @@
-import { OrderSlice, TOrderSlice, makeAnOrder } from "./orderSlice";
+import {
+  OrderSlice,
+  TOrderSlice,
+  initialState,
+  makeAnOrder
+} from './orderSlice';
 
 describe('Тест отправки заказа', () => {
   const testData = ['булочка', 'ингредиент', 'соус', 'булочка'];
-  
-  const initialState: TOrderSlice = {
-    orderRequest: false,
-    order: null,
-    error: null
-  };
 
   it('состояние pending отправки заказа', () => {
     const currentState = OrderSlice.reducer(
-        initialState,
-        makeAnOrder.pending('',[])
+      initialState,
+      makeAnOrder.pending('', [])
     );
 
     expect(currentState.orderRequest).toBeTruthy();
@@ -22,23 +21,21 @@ describe('Тест отправки заказа', () => {
 
   it('состояние fulfilled отправки заказа', () => {
     const testOrderResponse = {
-        success: true,
-        order: {
-            _id: '123',
-            status: '',
-            name: 'order',
-            createdAt: '',
-            updatedAt: '',
-            number: 1,
-            ingredients: testData
-        },
-        name: 'order'
-    }
+      success: true,
+      order: {
+        _id: '123',
+        status: '',
+        name: 'order',
+        createdAt: '',
+        updatedAt: '',
+        number: 1,
+        ingredients: testData
+      },
+      name: 'order'
+    };
     const currentState = OrderSlice.reducer(
-        {...initialState,
-            orderRequest: true
-        },
-        makeAnOrder.fulfilled(testOrderResponse, '', testData)
+      { ...initialState, orderRequest: true },
+      makeAnOrder.fulfilled(testOrderResponse, '', testData)
     );
 
     expect(currentState.orderRequest).toBeFalsy();
@@ -49,12 +46,12 @@ describe('Тест отправки заказа', () => {
   it('состояние rejected отправки заказа', () => {
     const error = new Error('testError');
     const currentState = OrderSlice.reducer(
-        {...initialState, orderRequest: true},
-        makeAnOrder.rejected(error, '', testData)
+      { ...initialState, orderRequest: true },
+      makeAnOrder.rejected(error, '', testData)
     );
 
     expect(currentState.order).toBeNull;
     expect(currentState.orderRequest).toBeFalsy();
     expect(currentState.error).toBe(error.message);
-  })
+  });
 });

@@ -1,21 +1,12 @@
-import { DataSlice, TDataState, getIngredients, getOrders } from './dataSlice';
+import {
+  DataSlice,
+  TDataState,
+  getIngredients,
+  getOrders,
+  initialState
+} from './dataSlice';
 
 describe('Тест слайса получения данных', () => {
-  const initialState: TDataState = {
-    ingredients: {
-      bun: [],
-      sauce: [],
-      main: []
-    },
-    orders: {
-      orders: [],
-      total: 0,
-      totalToday: 0
-    },
-    isLoading: false,
-    errors: null
-  };
-
   it('состояние pending получения списка ингредиентов', () => {
     const currentState = DataSlice.reducer(
       initialState,
@@ -101,17 +92,14 @@ describe('Тест слайса получения данных', () => {
         isLoading: true
       },
       getIngredients.rejected(testError, '')
-    );;
+    );
 
     expect(currentState.isLoading).toBe(false);
     expect(currentState.errors).toBe(testError.message);
   });
 
   it('состояние pending получения списка заказов', () => {
-    const currentState = DataSlice.reducer(
-      initialState,
-      getOrders.pending('')
-    );
+    const currentState = DataSlice.reducer(initialState, getOrders.pending(''));
 
     expect(currentState.errors).toBeNull();
     expect(currentState.isLoading).toBeTruthy();
@@ -119,31 +107,33 @@ describe('Тест слайса получения данных', () => {
 
   it('состояние fulfilled получения списка заказов', () => {
     const testData = {
-      orders: [{
-        _id: '1',
-        status: '',
-        name: 'order',
-        createdAt: '',
-        updatedAt: '',
-        number: 1,
-        ingredients: []
-    },
-  {
-    _id: '2',
-    status: '',
-    name: 'order',
-    createdAt: '',
-    updatedAt: '',
-    number: 1,
-    ingredients: []
-}],
+      orders: [
+        {
+          _id: '1',
+          status: '',
+          name: 'order',
+          createdAt: '',
+          updatedAt: '',
+          number: 1,
+          ingredients: []
+        },
+        {
+          _id: '2',
+          status: '',
+          name: 'order',
+          createdAt: '',
+          updatedAt: '',
+          number: 1,
+          ingredients: []
+        }
+      ],
       total: 100,
       totalToday: 10,
       success: true
     };
 
     const currentState = DataSlice.reducer(
-      {...initialState, isLoading: true},
+      { ...initialState, isLoading: true },
       getOrders.fulfilled(testData, '')
     );
 
@@ -155,7 +145,7 @@ describe('Тест слайса получения данных', () => {
   it('состояние reject получения списка заказов', () => {
     const error = new Error('testError');
     const currentState = DataSlice.reducer(
-      {...initialState, isLoading: true},
+      { ...initialState, isLoading: true },
       getOrders.rejected(error, '')
     );
 

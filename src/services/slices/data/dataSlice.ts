@@ -18,7 +18,7 @@ export type TDataState = {
   errors: string | null;
 };
 
-const initialState: TDataState = {
+export const initialState: TDataState = {
   ingredients: {
     bun: [],
     sauce: [],

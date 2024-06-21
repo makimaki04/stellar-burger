@@ -1,15 +1,15 @@
-
-import { AuthSlice, TAuthState, getUser, loginUser, logoutUser, registerUser, updateUserData } from './authSlice';
+import { initialState } from '../auth/authSlice';
+import {
+  AuthSlice,
+  TAuthState,
+  getUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+  updateUserData
+} from './authSlice';
 
 describe('Тестирование механизма авторизации пользователя', () => {
-  const initialState: TAuthState = {
-    user: null,
-    isAuthChecked: false,
-    isAuthenticated: false,
-    request: false,
-    error: null
-  };
-
   const testRegData = {
     email: 'testEmail@yandex.ru',
     password: '12345',
@@ -61,7 +61,7 @@ describe('Тестирование механизма авторизации п�
 
   const testLoginData = {
     email: 'testEmail@yandex.ru',
-    password: '12345',
+    password: '12345'
   };
 
   it('состояние pending авторизации пользователя', () => {
@@ -77,7 +77,7 @@ describe('Тестирование механизма авторизации п�
   it('состояние fulfilled авторизации пользователя', () => {
     const testData = {
       success: true,
-      user: {...testLoginData, name: 'name'},
+      user: { ...testLoginData, name: 'name' },
       accessToken: 'accessToken',
       refreshToken: 'refreshToken'
     };
@@ -118,7 +118,6 @@ describe('Тестирование механизма авторизации п�
   });
 
   it('состояние fulfi lled выхода пользователя', () => {
-    
     const currentState = AuthSlice.reducer(
       { ...initialState, request: true },
       logoutUser.fulfilled(undefined, '')
@@ -128,7 +127,7 @@ describe('Тестирование механизма авторизации п�
     expect(currentState.error).toBeNull();
     expect(currentState.isAuthChecked).toBeFalsy();
     expect(currentState.isAuthenticated).toBeFalsy();
-    expect(currentState.user).toBeNull
+    expect(currentState.user).toBeNull;
   });
 
   it('состояние rejected выхода пользователя', () => {
@@ -145,10 +144,7 @@ describe('Тестирование механизма авторизации п�
   });
 
   it('состояние pending получения данных пользователя', () => {
-    const currentState = AuthSlice.reducer(
-      initialState,
-      getUser.pending('')
-    );
+    const currentState = AuthSlice.reducer(initialState, getUser.pending(''));
 
     expect(currentState.request).toBeTruthy();
     expect(currentState.error).toBeNull();
@@ -159,7 +155,7 @@ describe('Тестирование механизма авторизации п�
   it('состояние fulfilled получения данных пользователя', () => {
     const testData = {
       success: true,
-      user: {...testLoginData, name: 'name'},
+      user: { ...testLoginData, name: 'name' }
     };
 
     const currentState = AuthSlice.reducer(
@@ -200,7 +196,7 @@ describe('Тестирование механизма авторизации п�
   it('состояние fulfilled обновления данных пользователя', () => {
     const testData = {
       success: true,
-      user: testRegData,
+      user: testRegData
     };
 
     const currentState = AuthSlice.reducer(

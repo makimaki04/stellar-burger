@@ -16,7 +16,7 @@ export type TOrderSlice = {
   error: string | null;
 };
 
-const initialState: TOrderSlice = {
+export const initialState: TOrderSlice = {
   orderRequest: false,
   order: null,
   error: null
