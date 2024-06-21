@@ -8,7 +8,7 @@ import {
   logoutApi,
   registerUserApi,
   updateUserApi
-} from '@api';
+} from '../../../utils/burger-api';
 import {
   PayloadAction,
   createAsyncThunk,
@@ -16,7 +16,7 @@ import {
   isAction
 } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { deleteCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, setCookie } from '../../../utils/cookie';
 
 export const registerUser = createAsyncThunk(
   'reg/user',
@@ -51,12 +51,12 @@ export const updateUserData = createAsyncThunk(
   }
 );
 
-type TAuthState = {
+export type TAuthState = {
   user: TUser | null;
   isAuthChecked: boolean;
   isAuthenticated: boolean;
   request: boolean;
-  error: unknown;
+  error: string | null;
 };
 
 const initialState: TAuthState = {
@@ -79,7 +79,7 @@ export const AuthSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.request = false;
-        state.error = action.payload;
+        state.error = action.error.message!;
         state.isAuthChecked = true;
       })
       .addCase(
@@ -98,7 +98,7 @@ export const AuthSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.request = false;
-        state.error = action.payload;
+        state.error = action.error.message!;
         state.isAuthChecked = true;
       })
       .addCase(
@@ -117,7 +117,7 @@ export const AuthSlice = createSlice({
       })
       .addCase(logoutUser.rejected, (state, actioon) => {
         state.request = false;
-        state.error = actioon.payload;
+        state.error = actioon.error.message!;
       })
       .addCase(logoutUser.fulfilled, (state) => (state = initialState))
       .addCase(getUser.pending, (state) => {
@@ -128,7 +128,7 @@ export const AuthSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, action) => {
         state.request = false;
-        state.error = action.payload;
+        state.error = action.error.message!;
         state.isAuthChecked = true;
       })
       .addCase(
@@ -147,7 +147,7 @@ export const AuthSlice = createSlice({
       })
       .addCase(updateUserData.rejected, (state, action) => {
         state.request = false;
-        state.error = action.payload;
+        state.error = action.error.message!;
       })
       .addCase(
         updateUserData.fulfilled,

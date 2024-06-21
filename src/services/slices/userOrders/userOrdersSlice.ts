@@ -1,4 +1,4 @@
-import { TFeedsResponse, getOrdersApi } from '@api';
+import { TFeedsResponse, getOrdersApi } from '../../../utils/burger-api';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
@@ -7,9 +7,9 @@ export const getOrders = createAsyncThunk('get/order', async () => {
   return orders;
 });
 
-type TUserOrdersSlice = {
+export type TUserOrdersSlice = {
   orders: TOrder[];
-  error: unknown;
+  error: string | null;
 };
 
 export const initialState: TUserOrdersSlice = {
@@ -24,7 +24,7 @@ export const UserOrdersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getOrders.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = String(action.error.message);
       })
       .addCase(
         getOrders.fulfilled,

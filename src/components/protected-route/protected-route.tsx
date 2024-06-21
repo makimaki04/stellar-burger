@@ -1,6 +1,9 @@
 import React from 'react';
 import { useSelector } from '../../services/store';
-import { selectIsRequest, selectUser } from '../../services/slices/authSlice';
+import {
+  selectIsRequest,
+  selectUser
+} from '../../services/slices/auth/authSlice';
 import { Navigate, useLocation } from 'react-router-dom';
 import { Preloader } from '../ui/preloader';
 

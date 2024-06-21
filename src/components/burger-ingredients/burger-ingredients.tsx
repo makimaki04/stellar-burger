@@ -8,7 +8,7 @@ import {
   getIngredients,
   selectIngredients,
   selectSuccess
-} from '../../services/slices/dataSlice';
+} from '../../services/slices/data/dataSlice';
 import { NotFound404 } from '@pages';
 
 export const BurgerIngredients: FC = () => {
