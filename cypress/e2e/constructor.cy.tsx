@@ -1,7 +1,6 @@
 const testHost = 'http://localhost:4000/';
 const details = 'Детали ингредиента';
 const ingredient = 'Ингредиент 1';
-const anotherIngredient = 'Ингредиент 13';
 const addBtn = 'Добавить';
 const constructorSelector = '[data-cy=burger-constructor]';
 
@@ -41,20 +40,20 @@ describe('Тесты модальеого окна', () => {
 
   it('Тест открытия модального окна', () => {
     cy.contains(details).should('not.exist');
-    cy.contains(anotherIngredient).click();
+    cy.contains(ingredient).click();
     cy.contains(details).should('exist');
-    cy.get('#modal').contains(anotherIngredient).should('exist');
+    cy.get('#modal').contains(ingredient).should('exist');
   });
 
   it('Тест закрытия модального окна кликом на крестик', () => {
-    cy.contains(anotherIngredient).click();
+    cy.contains(ingredient).click();
     cy.contains(details).should('exist');
     cy.get('#close-btn').click();
     cy.contains(details).should('not.exist');
   });
 
   it('Тест закрытия модального окна кликом на оверлей', () => {
-    cy.contains(anotherIngredient).click();
+    cy.contains(ingredient).click();
     cy.contains(details).should('exist');
     cy.get('[data-cy=overlay]').click('right', { force: true });
     cy.contains(details).should('not.exist');
