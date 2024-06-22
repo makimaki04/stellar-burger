@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   clearConstructorState,
   constructorStateSelector
-} from '../../services/slices/burgerConstructorSlice';
+} from '../../services/slices/constructor/burgerConstructorSlice';
 import { Navigate, useNavigate } from 'react-router-dom';
 import {
   clearOrderState,
   makeAnOrder,
   selectOrders,
   selectRequest
-} from '../../services/slices/orderSlice';
-import { selectUser } from '../../services/slices/authSlice';
+} from '../../services/slices/order/orderSlice';
+import { selectUser } from '../../services/slices/auth/authSlice';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
@@ -39,7 +39,7 @@ export const BurgerConstructor: FC = () => {
   };
 
   const closeOrderModal = () => {
-    navigate('/feed');
+    navigate('/');
     dispatch(clearConstructorState());
     dispatch(clearOrderState());
   };

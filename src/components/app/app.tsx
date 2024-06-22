@@ -16,9 +16,9 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import { getIngredients } from '../../services/slices/dataSlice';
+import { getIngredients } from '../../services/slices/data/dataSlice';
 import { ProtectedRoute } from '../protected-route';
-import { getUser } from '../../services/slices/authSlice';
+import { getUser } from '../../services/slices/auth/authSlice';
 
 const App = () => {
   const dispatch = useDispatch();

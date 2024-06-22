@@ -9,7 +9,7 @@ import { FC, useEffect, useState } from 'react';
 import {
   getIngredients,
   selectIsLoading
-} from '../../services/slices/dataSlice';
+} from '../../services/slices/data/dataSlice';
 
 export const ConstructorPage: FC = () => {
   /** TODO: взять переменную из стора */

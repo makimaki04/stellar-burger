@@ -5,7 +5,7 @@ import { useDispatch } from '../../services/store';
 import {
   rebuildOrder,
   removeFromConstructor
-} from '../../services/slices/burgerConstructorSlice';
+} from '../../services/slices/constructor/burgerConstructorSlice';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
   ({ ingredient, index, totalItems }) => {
@@ -24,7 +24,7 @@ export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
     };
 
     const handleClose = () => {
-      dispatch(removeFromConstructor(index));
+      dispatch(removeFromConstructor(ingredient));
     };
 
     return (

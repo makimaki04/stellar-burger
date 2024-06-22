@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   getIngredients,
   selectIngredients
-} from '../../services/slices/dataSlice';
+} from '../../services/slices/data/dataSlice';
 
 const maxIngredients = 6;
 

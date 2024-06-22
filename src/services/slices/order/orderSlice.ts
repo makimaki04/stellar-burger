@@ -1,9 +1,4 @@
-import {
-  TNewOrderResponse,
-  TOrderResponse,
-  getOrderByNumberApi,
-  orderBurgerApi
-} from '@api';
+import { TNewOrderResponse, orderBurgerApi } from '../../../utils/burger-api';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
@@ -15,13 +10,13 @@ export const makeAnOrder = createAsyncThunk(
   }
 );
 
-type TOrderSlice = {
+export type TOrderSlice = {
   orderRequest: boolean;
   order: TOrder | null;
-  error: unknown;
+  error: string | null;
 };
 
-const initialState: TOrderSlice = {
+export const initialState: TOrderSlice = {
   orderRequest: false,
   order: null,
   error: null
@@ -40,7 +35,7 @@ export const OrderSlice = createSlice({
       })
       .addCase(makeAnOrder.rejected, (state, action) => {
         state.orderRequest = false;
-        state.error = action.payload;
+        state.error = String(action.error.message);
       })
       .addCase(
         makeAnOrder.fulfilled,
